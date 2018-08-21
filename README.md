@@ -2,7 +2,7 @@
 
 # Marker Tool
 
-Marker Tool for marking code-fragments for the [CodeX Editor](https://ifmo.su/editor).
+Marker Tool for highlighting text-fragments for the [CodeX Editor](https://ifmo.su/editor).
 
 ![](assets/example.gif)
 
@@ -51,8 +51,8 @@ var editor = CodexEditor({
     ...
     Marker: {
       class: Marker,
-      shortcut: 'CMD+SHIFT+A',
-    },
+      shortcut: 'CMD+SHIFT+M',
+    }
   },
   
   ...
@@ -65,13 +65,13 @@ This Tool has no config params
 
 ## Output data
 
-Marked text will be wrapped with a `span` tag with an `marker` class.
+Marked text will be wrapped with a `mark` tag with an `cdx-marker` class.
 
 ```json
 {
     "type" : "text",
     "data" : {
-        "text" : "Create a directory for your module, enter it and run <span class=\"marker\">npm init</span> command."
+        "text" : "Create a directory for your module, enter it and run <mark class=\"cdx-marker\">npm init</mark> command."
     }
 }
 ```

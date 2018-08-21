@@ -27,14 +27,14 @@ class Marker {
      *
      * @type {string}
      */
-    this.tag = 'SPAN';
+    this.tag = 'MARK';
 
     /**
      * Class name for term-tag
      *
      * @type {string}
      */
-    this.CSS = 'marker';
+    this.CSS = 'cdx-marker';
 
     /**
      * CSS classes
@@ -98,9 +98,9 @@ class Marker {
     /**
      * Create a wrapper for highlighting
      */
-    let span = document.createElement(this.tag);
+    let marker = document.createElement(this.tag);
 
-    span.classList.add(this.CSS);
+    marker.classList.add(this.CSS);
 
     /**
      * SurroundContent throws an error if the Range splits a non-Text node with only one of its boundary points
@@ -108,13 +108,13 @@ class Marker {
      *
      * // range.surroundContents(span);
      */
-    span.appendChild(range.extractContents());
-    range.insertNode(span);
+    marker.appendChild(range.extractContents());
+    range.insertNode(marker);
 
     /**
      * Expand (add) selection to highlighted block
      */
-    this.api.selection.expandToTag(span);
+    this.api.selection.expandToTag(marker);
   }
 
   /**
