@@ -3,10 +3,8 @@
   "version": "1.0.1",
   "keywords": [
     "codex editor",
-    "inline",
-    "code",
-    "tool",
-    "marker"
+    "marker",
+    "tool"
   ],
   "description": "Marker Tool for CodeX.Editor",
   "license": "MIT",
