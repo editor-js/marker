@@ -61,6 +61,7 @@ class Marker {
    */
   render() {
     this.button = document.createElement('button');
+    this.button.type = 'button';
     this.button.classList.add(this.iconClasses.base);
     this.button.innerHTML = this.toolboxIcon;
 
