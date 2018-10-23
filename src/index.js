@@ -172,7 +172,7 @@ class Marker {
 
   /**
    * Sanitizer rule
-   * @return {{span: {class: string}}}
+   * @return {{mark: {class: string}}}
    */
   static get sanitize() {
     return {
