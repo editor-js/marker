@@ -10,6 +10,15 @@ require('./index.css').toString();
  */
 class Marker {
   /**
+   * Class name for term-tag
+   *
+   * @type {string}
+   */
+  static get CSS() {
+    return 'cdx-marker';
+  };
+
+  /**
    * @param {{api: object}}  - CodeX Editor API
    */
   constructor({api}) {
@@ -28,13 +37,6 @@ class Marker {
      * @type {string}
      */
     this.tag = 'MARK';
-
-    /**
-     * Class name for term-tag
-     *
-     * @type {string}
-     */
-    this.CSS = 'cdx-marker';
 
     /**
      * CSS classes
@@ -78,7 +80,7 @@ class Marker {
       return;
     }
 
-    let termWrapper = this.api.selection.findParentTag(this.tag, this.CSS);
+    let termWrapper = this.api.selection.findParentTag(this.tag, Marker.CSS);
 
     /**
      * If start or end of selection is in the highlighted block
@@ -101,7 +103,7 @@ class Marker {
      */
     let marker = document.createElement(this.tag);
 
-    marker.classList.add(this.CSS);
+    marker.classList.add(Marker.CSS);
 
     /**
      * SurroundContent throws an error if the Range splits a non-Text node with only one of its boundary points
@@ -155,7 +157,7 @@ class Marker {
    * Check and change Term's state for current selection
    */
   checkState() {
-    const termTag = this.api.selection.findParentTag(this.tag, this.CSS);
+    const termTag = this.api.selection.findParentTag(this.tag, Marker.CSS);
 
     this.button.classList.toggle(this.iconClasses.active, !!termTag);
   }
@@ -166,6 +168,18 @@ class Marker {
    */
   get toolboxIcon() {
     return '<svg width="20" height="18"> <path d="M10.458 12.04l2.919 1.686-.781 1.417-.984-.03-.974 1.687H8.674l1.49-2.583-.508-.775.802-1.401zm.546-.952l3.624-6.327a1.597 1.597 0 0 1 2.182-.59 1.632 1.632 0 0 1 .615 2.201l-3.519 6.391-2.902-1.675zm-7.73 3.467h3.465a1.123 1.123 0 1 1 0 2.247H3.273a1.123 1.123 0 1 1 0-2.247z"/> </svg>'
+  }
+
+  /**
+   * Sanitizer rule
+   * @return {{mark: {class: string}}}
+   */
+  static get sanitize() {
+    return {
+      mark: {
+        class: Marker.CSS
+      }
+    };
   }
 }
 
