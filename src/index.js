@@ -4,7 +4,7 @@
 require('./index.css').toString();
 
 /**
- * Marker Tool for the CodeX Editor
+ * Marker Tool for the Editor.js
  *
  * Allows to wrap inline fragment and style it somehow.
  */
@@ -19,7 +19,7 @@ class Marker {
   };
 
   /**
-   * @param {{api: object}}  - CodeX Editor API
+   * @param {{api: object}}  - Editor.js API
    */
   constructor({api}) {
     this.api = api;

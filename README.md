@@ -1,8 +1,8 @@
-![](https://badgen.net/badge/CodeX%20Editor/v2.0/blue)
+![](https://badgen.net/badge/Editor.js/v2.0/blue)
 
 # Marker Tool
 
-Marker Tool for highlighting text-fragments for the [CodeX Editor](https://ifmo.su/editor).
+Marker Tool for highlighting text-fragments for the [Editor.js](https://editorjs.io).
 
 ![](assets/example.gif)
 
@@ -13,13 +13,13 @@ Marker Tool for highlighting text-fragments for the [CodeX Editor](https://ifmo.
 Get the package
 
 ```shell
-npm i --save-dev codex.editor.marker
+npm i --save-dev @editorjs/marker
 ```
 
 Include module at your application
 
 ```javascript
-const Marker = require('codex.editor.marker');
+const Marker = require('@editorjs/marker');
 ```
 
 ### Download to your project's source dir
@@ -29,11 +29,11 @@ const Marker = require('codex.editor.marker');
 
 ### Load from CDN
 
-You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/codex.editor.marker).
+You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/marker).
 
-`https://cdn.jsdelivr.net/npm/codex.editor.marker@1.0.1`
+`https://cdn.jsdelivr.net/npm/@editorjs/marker@1.0.1`
 
-Require this script on a page with CodeX Editor.
+Require this script on a page with Editor.js.
 
 ```html
 <script src="..."></script>
@@ -41,10 +41,10 @@ Require this script on a page with CodeX Editor.
 
 ## Usage
 
-Add a new Tool to the `tools` property of the CodeX Editor initial config.
+Add a new Tool to the `tools` property of the Editor.js initial config.
 
 ```javascript
-var editor = CodexEditor({
+var editor = EditorJS({
   ...
   
   tools: {
