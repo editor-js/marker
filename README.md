@@ -2,7 +2,7 @@
 
 # Marker Tool
 
-Marker Tool for highlighting text-fragments for the [Editor.js](https://ifmo.su/editor).
+Marker Tool for highlighting text-fragments for the [Editor.js](https://editorjs.io).
 
 ![](assets/example.gif)
 
