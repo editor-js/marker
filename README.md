@@ -31,7 +31,7 @@ const Marker = require('@editorjs/marker');
 
 You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/marker).
 
-`https://cdn.jsdelivr.net/npm/@editorjs/marker@1.0.1`
+`https://cdn.jsdelivr.net/npm/@editorjs/marker@latest`
 
 Require this script on a page with Editor.js.
 
