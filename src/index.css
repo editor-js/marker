@@ -1,4 +1,84 @@
+/*=========colors=========*/
 .cdx-marker {
-  background: rgba(245,235,111,0.29);
+	background: rgb(251,243,219);
   padding: 3px 0;
+}
+
+.cdx-marker__default {
+	background: rgb(251,243,219);
+	padding: 3px 0;
+}
+
+.cdx-marker__red {
+  background: rgb(251,228,228);
+	padding: 3px 0;
+}
+
+.cdx-marker__yellow {
+	background: rgb(251,243,219);
+	padding: 3px 0;
+}
+
+.cdx-marker__green {
+	background: rgb(221,237,234);
+	padding: 3px 0;
+}
+
+.cdx-marker__blue {
+	background: rgb(221,235,241);
+	padding: 3px 0;
+}
+
+.cdx-marker__brown {
+	background: rgb(233,229,227);
+	padding: 3px 0;
+}
+
+.cdx-marker__purple {
+	background: rgb(234,228,242);
+	padding: 3px 0;
+}
+
+/*=========colors=========*/
+
+
+
+
+/*========pallette=======*/
+.cdx-marker-button {
+	position: relative;
+}
+
+.cdx-marker-hide {
+	display: none !important;
+}
+
+.cdx-marker-pallette {
+	position: absolute;
+	top: 25px;
+	left: 25px;
+
+	width: fit-content;
+	height: fit-content;
+	min-height: 70px;
+
+	display: grid;
+	grid-template-columns: 35px 35px;
+	grid-template-rows: auto;
+
+	border-radius: 4px;
+	background-color: grey;
+
+	list-style-type: none;
+	border: 2px yellow solid;
+}
+
+.cdx-marker-pallette > div {
+	width: 33px;
+	height: 33px;
+	padding: 5px !important;
+	border: 1px solid white;
+
+	cursor: pointer;
+	margin: 0;
 }
