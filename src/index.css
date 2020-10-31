@@ -1,21 +1,11 @@
 /*=========colors=========*/
-.cdx-marker {
+.cdx-marker { /*default - yellow*/
 	background: rgb(251,243,219);
   padding: 3px 0;
 }
 
-.cdx-marker__default {
-	background: rgb(251,243,219);
-	padding: 3px 0;
-}
-
 .cdx-marker__red {
   background: rgb(251,228,228);
-	padding: 3px 0;
-}
-
-.cdx-marker__yellow {
-	background: rgb(251,243,219);
 	padding: 3px 0;
 }
 
@@ -55,7 +45,7 @@
 
 .cdx-marker-pallette {
 	position: absolute;
-	top: 25px;
+	top: 30px;
 	left: 25px;
 
 	width: fit-content;

@@ -3,10 +3,9 @@
  */
 require('./index.css').toString();
 
-
 const CSS_OBJ = Object.freeze({
   colors: {
-    default: 'cdx-marker__default',
+    default: 'cdx-marker',
     blue: 'cdx-marker__blue',
     red: 'cdx-marker__red',
     green: 'cdx-marker__green',
@@ -43,6 +42,10 @@ class Marker {
    */
   constructor({api}) {
     this.api = api;
+    if (typeof this.api.selection.getCurrentRange !== "function") {
+      alert("Upgrade editorjs to maily version");
+      console.error("Upgrade editorjs to maily version");
+    }
 
     /**
      * Toolbar Button
@@ -98,23 +101,22 @@ class Marker {
     });
     try {
       this.button.addEventListener('click', e => {
-        if (typeof this.api.selection.getCurrentRange !== "function") {
-          console.error("Upgrade editorjs to maily version");
-          return;
-        }
         e.preventDefault();
         e.stopPropagation();
+        e.stopImmediatePropagation();
         this.surround(this.api.selection.getCurrentRange(), CSS_OBJ.colors.default, true);
         this.palletteHide(true);
       })
       this.pallette.palletteWrapper = make("div", [CSS_OBJ.hide, CSS_OBJ.pallette]);
+      this.pallette.palletteWrapper.addEventListener("mouseleave", e => {
+        this.palletteHide(true);
+      });
       Object.keys(CSS_OBJ.colors).forEach(key => {
         const v = CSS_OBJ.colors[key];
         const element = make("div", [v]);
         element.addEventListener("click", e => {
           e.preventDefault();
           e.stopPropagation();
-          this.palletteHide(true);
           this.surround(undefined, v);
         })
         this.pallette.palletteWrapper.appendChild(element);
@@ -156,14 +158,14 @@ class Marker {
     if (!refinedRange) {
       return;
     }
-    const selectedClass = className ? className : CSS_OBJ.colors.default;
+    let selectedClass = className ? className : CSS_OBJ.colors.default;
 
     //  if forceRemove is true ignore class
     if(forceRemove) {
-      const wrapper = this.api.selection.findParentTag(this.tag);
+      let wrapper = this.api.selection.findParentTag(this.tag);
       if(wrapper) {
-        this.unwrap(wrapper);
-        return;
+        console.log(wrapper.className.split(" "));
+        selectedClass = wrapper.className.split(" ")?.[0];
       }
     }
 
@@ -215,7 +217,6 @@ class Marker {
      * Expand selection to all term-tag
      */
     this.api.selection.expandToTag(termWrapper);
-
     let sel = window.getSelection();
     let range = sel.getRangeAt(0);
 
