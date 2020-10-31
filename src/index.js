@@ -135,7 +135,7 @@ class Marker {
    * @param {boolean} bool
    */
   palletteHide(bool) {
-    console.log("palletteHide", bool);
+    // console.log("palletteHide", bool);
     if (bool) {
       this.pallette.open = true;
       this.pallette.palletteWrapper.classList.add(CSS_OBJ.hide);
@@ -153,7 +153,7 @@ class Marker {
    * @param {boolean} forceRemove - force it off or on
    */
   surround(range, className, forceRemove=false) {
-    console.log(className, typeof className, forceRemove);
+    // console.log(className, typeof className, forceRemove);
     const refinedRange = range === undefined ? this.api.selection.getCurrentRange() : range;
     if (!refinedRange) {
       return;
@@ -164,7 +164,7 @@ class Marker {
     if(forceRemove) {
       let wrapper = this.api.selection.findParentTag(this.tag);
       if(wrapper) {
-        console.log(wrapper.className.split(" "));
+        // console.log(wrapper.className.split(" "));
         selectedClass = wrapper.className.split(" ")?.[0];
       }
     }
