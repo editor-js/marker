@@ -49,7 +49,7 @@ var editor = EditorJS({
   
   tools: {
     ...
-    Marker: {
+    marker: {
       class: Marker,
       shortcut: 'CMD+SHIFT+M',
     }
