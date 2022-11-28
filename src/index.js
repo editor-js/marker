@@ -167,7 +167,7 @@ class Marker {
    * @return {string}
    */
   get toolboxIcon() {
-    return require('./../assets/icon.svg').default;
+    return require('@codexteam/icons').IconMarker;
   }
 
   /**
