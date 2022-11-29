@@ -1,7 +1,8 @@
 /**
  * Build styles
  */
-require('./index.css').toString();
+import './index.css';
+import { IconMarker } from '@codexteam/icons'
 
 /**
  * Marker Tool for the Editor.js
@@ -167,7 +168,7 @@ class Marker {
    * @return {string}
    */
   get toolboxIcon() {
-    return require('@codexteam/icons').IconMarker;
+    return IconMarker;
   }
 
   /**
