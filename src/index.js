@@ -9,7 +9,7 @@ import { IconMarker } from '@codexteam/icons'
  *
  * Allows to wrap inline fragment and style it somehow.
  */
-class Marker {
+ export default class Marker {
   /**
    * Class name for term-tag
    *
@@ -184,4 +184,3 @@ class Marker {
   }
 }
 
-module.exports = Marker;
