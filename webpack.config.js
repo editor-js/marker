@@ -36,6 +36,7 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js',
     library: 'Marker',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    libraryExport: 'default'
   }
 };

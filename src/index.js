@@ -1,14 +1,15 @@
 /**
  * Build styles
  */
-require('./index.css').toString();
+import './index.css';
+import { IconMarker } from '@codexteam/icons'
 
 /**
  * Marker Tool for the Editor.js
  *
  * Allows to wrap inline fragment and style it somehow.
  */
-class Marker {
+ export default class Marker {
   /**
    * Class name for term-tag
    *
@@ -167,7 +168,7 @@ class Marker {
    * @return {string}
    */
   get toolboxIcon() {
-    return require('./../assets/icon.svg').default;
+    return IconMarker;
   }
 
   /**
@@ -183,4 +184,3 @@ class Marker {
   }
 }
 
-module.exports = Marker;
