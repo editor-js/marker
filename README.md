@@ -8,36 +8,19 @@ Marker Tool for highlighting text-fragments for the [Editor.js](https://editorjs
 
 ## Installation
 
-### Install via NPM
-
 Get the package
 
 ```shell
-npm i --save-dev @editorjs/marker
+yarn add @editorjs/marker
 ```
 
 Include module at your application
 
 ```javascript
-const Marker = require('@editorjs/marker');
+import Marker from '@editorjs/marker';
 ```
 
-### Download to your project's source dir
-
-1. Upload folder `dist` from repository
-2. Add `dist/bundle.js` file to your page.
-
-### Load from CDN
-
-You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/marker).
-
-`https://cdn.jsdelivr.net/npm/@editorjs/marker@latest`
-
-Require this script on a page with Editor.js.
-
-```html
-<script src="..."></script>
-```
+Optionally, you can load this tool from CDN [JsDelivr CDN](https://cdn.jsdelivr.net/npm/@editorjs/marker@latest)
 
 ## Usage
 
