@@ -1,186 +1,114 @@
-/**
- * Build styles
- */
-import './index.css';
-import { IconMarker } from '@codexteam/icons'
+export default class Marker {
 
-/**
- * Marker Tool for the Editor.js
- *
- * Allows to wrap inline fragment and style it somehow.
- */
- export default class Marker {
-  /**
-   * Class name for term-tag
-   *
-   * @type {string}
-   */
-  static get CSS() {
-    return 'cdx-marker';
-  };
-
-  /**
-   * @param {{api: object}}  - Editor.js API
-   */
-  constructor({api}) {
-    this.api = api;
-
-    /**
-     * Toolbar Button
-     *
-     * @type {HTMLElement|null}
-     */
-    this.button = null;
-
-    /**
-     * Tag represented the term
-     *
-     * @type {string}
-     */
-    this.tag = 'MARK';
-
-    /**
-     * CSS classes
-     */
-    this.iconClasses = {
-      base: this.api.styles.inlineToolButton,
-      active: this.api.styles.inlineToolButtonActive
-    };
-  }
-
-  /**
-   * Specifies Tool as Inline Toolbar Tool
-   *
-   * @return {boolean}
-   */
   static get isInline() {
     return true;
   }
 
-  /**
-   * Create button element for Toolbar
-   *
-   * @return {HTMLElement}
-   */
+  get state() {
+    return this._state;
+  }
+
+  set state(state) {
+    this._state = state;
+
+    this.button.classList.toggle(this.api.styles.inlineToolButtonActive, state);
+  }
+
+  constructor({api}) {
+    this.api = api;
+    this.button = null;
+    this._state = false;
+
+    this.tag = 'MARK';
+    this.class = 'cdx-marker';
+  }
+
   render() {
     this.button = document.createElement('button');
     this.button.type = 'button';
-    this.button.classList.add(this.iconClasses.base);
-    this.button.innerHTML = this.toolboxIcon;
+    this.button.innerHTML = '<svg width="20" height="18"><path d="M10.458 12.04l2.919 1.686-.781 1.417-.984-.03-.974 1.687H8.674l1.49-2.583-.508-.775.802-1.401zm.546-.952l3.624-6.327a1.597 1.597 0 0 1 2.182-.59 1.632 1.632 0 0 1 .615 2.201l-3.519 6.391-2.902-1.675zm-7.73 3.467h3.465a1.123 1.123 0 1 1 0 2.247H3.273a1.123 1.123 0 1 1 0-2.247z"/></svg>';
+    this.button.classList.add(this.api.styles.inlineToolButton);
 
     return this.button;
   }
 
-  /**
-   * Wrap/Unwrap selected fragment
-   *
-   * @param {Range} range - selected fragment
-   */
   surround(range) {
-    if (!range) {
+    if (this.state) {
+      this.unwrap(range);
       return;
     }
 
-    let termWrapper = this.api.selection.findParentTag(this.tag, Marker.CSS);
+    this.wrap(range);
+  }
 
-    /**
-     * If start or end of selection is in the highlighted block
-     */
-    if (termWrapper) {
-      this.unwrap(termWrapper);
+  wrap(range) {
+    const selectedText = range.extractContents();
+    const mark = document.createElement(this.tag);
+
+    mark.classList.add(this.class);
+    mark.appendChild(selectedText);
+    range.insertNode(mark);
+
+    this.api.selection.expandToTag(mark);
+  }
+
+  unwrap(range) {
+    const mark = this.api.selection.findParentTag(this.tag, this.class);
+    const text = range.extractContents();
+
+    mark.remove();
+
+    range.insertNode(text);
+  }
+
+
+  checkState() {
+    const mark = this.api.selection.findParentTag(this.tag);
+
+    this.state = !!mark;
+  
+    if (this.state) {
+      this.showActions(mark);
     } else {
-      this.wrap(range);
+      this.hideActions();
     }
   }
 
-  /**
-   * Wrap selection with term-tag
-   *
-   * @param {Range} range - selected fragment
-   */
-  wrap(range) {
-    /**
-     * Create a wrapper for highlighting
-     */
-    let marker = document.createElement(this.tag);
+  renderActions() {
+    this.colorPicker = document.createElement('input');
+    this.colorPicker.type = 'color';
+    this.colorPicker.value = '#f5f1cc';
+    this.colorPicker.hidden = true;
 
-    marker.classList.add(Marker.CSS);
-
-    /**
-     * SurroundContent throws an error if the Range splits a non-Text node with only one of its boundary points
-     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Range/surroundContents}
-     *
-     * // range.surroundContents(span);
-     */
-    marker.appendChild(range.extractContents());
-    range.insertNode(marker);
-
-    /**
-     * Expand (add) selection to highlighted block
-     */
-    this.api.selection.expandToTag(marker);
+    return this.colorPicker;
   }
 
-  /**
-   * Unwrap term-tag
-   *
-   * @param {HTMLElement} termWrapper - term wrapper tag
-   */
-  unwrap(termWrapper) {
-    /**
-     * Expand selection to all term-tag
-     */
-    this.api.selection.expandToTag(termWrapper);
+  showActions(mark) {
+    const {backgroundColor} = mark.style;
+    this.colorPicker.value = backgroundColor ? this.convertToHex(backgroundColor) : '#f5f1cc';
 
-    let sel = window.getSelection();
-    let range = sel.getRangeAt(0);
-
-    let unwrappedContent = range.extractContents();
-
-    /**
-     * Remove empty term-tag
-     */
-    termWrapper.parentNode.removeChild(termWrapper);
-
-    /**
-     * Insert extracted content
-     */
-    range.insertNode(unwrappedContent);
-
-    /**
-     * Restore selection
-     */
-    sel.removeAllRanges();
-    sel.addRange(range);
-  }
-
-  /**
-   * Check and change Term's state for current selection
-   */
-  checkState() {
-    const termTag = this.api.selection.findParentTag(this.tag, Marker.CSS);
-
-    this.button.classList.toggle(this.iconClasses.active, !!termTag);
-  }
-
-  /**
-   * Get Tool icon's SVG
-   * @return {string}
-   */
-  get toolboxIcon() {
-    return IconMarker;
-  }
-
-  /**
-   * Sanitizer rule
-   * @return {{mark: {class: string}}}
-   */
-  static get sanitize() {
-    return {
-      mark: {
-        class: Marker.CSS
-      }
+    this.colorPicker.onchange = () => {
+      mark.style.backgroundColor = this.colorPicker.value;
     };
+    this.colorPicker.hidden = false;
+  }
+
+  hideActions() {
+    this.colorPicker.onchange = null;
+    this.colorPicker.hidden = true;
+  }
+
+  convertToHex(color) {
+    const rgb = color.match(/(\d+)/g);
+
+    let hexr = parseInt(rgb[0]).toString(16);
+    let hexg = parseInt(rgb[1]).toString(16);
+    let hexb = parseInt(rgb[2]).toString(16);
+
+    hexr = hexr.length === 1 ? '0' + hexr : hexr;
+    hexg = hexg.length === 1 ? '0' + hexg : hexg;
+    hexb = hexb.length === 1 ? '0' + hexb : hexb;
+
+    return '#' + hexr + hexg + hexb;
   }
 }
-
